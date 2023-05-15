@@ -29,11 +29,13 @@ for file in os.listdir(input_directory):
                             name = full_name.rstrip('.')
                             if name == domain:
                                 name = "@"
-                                formatted_name = formatted_domain
                             else:
                                 name = name.replace(f".{domain}", "")
-                                formatted_name = f"{name.replace('.', '_')}_{formatted_domain}"
+                            formatted_name = f"{name.replace('.', '_')}_{formatted_domain}"
                             resource_name = f"dns_{rtype.lower()}__{formatted_name}"
+
+                            if name == "@":
+                                resource_name = f"dns_{rtype.lower()}__{formatted_domain}"
 
                             if rtype == 'TXT' and value.startswith('"') and value.endswith('"'):
                                 value = value.strip('"')

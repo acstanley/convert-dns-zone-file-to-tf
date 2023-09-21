@@ -16,7 +16,7 @@ for file in os.listdir(input_directory):
         output_file = os.path.join(output_directory, f'dns-{domain}.tf')
 
         formatted_domain = domain.replace('.', '_')
-        zone_resource_name = f"dns_zone__{formatted_domain}"
+        zone_resource_name = f"zone_{formatted_domain}"
 
         with open(input_file, 'r') as in_file:
             content = in_file.readlines()
@@ -36,10 +36,10 @@ for file in os.listdir(input_directory):
                         else:
                             name = name.replace(f".{domain}", "")
                         formatted_name = f"{name.replace('.', '_')}_{formatted_domain}"
-                        resource_name = f"dns_{rtype.lower()}__{formatted_name}"
+                        resource_name = f"{rtype.lower()}_{formatted_name}"
 
                         if name == "@":
-                            resource_name = f"dns_{rtype.lower()}__{formatted_domain}"
+                            resource_name = f"{rtype.lower()}_{formatted_domain}"
 
                         if rtype == 'TXT' and value.startswith('"') and value.endswith('"'):
                             value = value.strip('"')
